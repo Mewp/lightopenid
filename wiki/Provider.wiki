@@ -1,0 +1,40 @@
+= Introduction =
+
+The `LightOpenIDProvider` class is an OpenID Provider implementation.
+
+It requires PHP >= 5.1.2, or >= 5 with [http://php.net/hash Hash] extension.
+Also, if you aren't running it over https and want to support associations (not required, however recommended), you must have GMP or BCMath extensions. GMP is faster, and is used if available.
+
+= Usage =
+The class has to be extended in order to use it -- it offers no predefined interface.
+== Functions to implement ==
+=== Required ===
+<dl>
+<dt>`checkid($realm, &$attributes)`</dt>
+<dd>This function should return an identifier (i.e. openid) if the user is authenticated, and false otherwise. <br/>
+It should check whether the user has allowed to be authenticated with $realm.<br/>
+If the user wished to send any attributes to the site, they should be put in $attributes. <br/>
+The function *must not* interact with the user in any way.</dd>
+<dt>`setup($identity, $realm, $assoc_handle, $attributes)`</dt>
+<dd>Handles user interface if it's needed. <br/>
+Should ask the user whether he wants to login to `$realm` using `$identity`, and providing `$attributes`. See `example-mysql.php` for an example interface. <br/>
+`$assoc_handle` must be present as `openid.assoc_handle` in `$_GET` or `$_POST` in every request.</dd>
+</dl>
+=== Optional ===
+<dl>
+<dt>`setAssoc($handle, $assoc)`</dt>
+<dt>`getAssoc($handle)`</dt>
+<dt>`delAssoc($handle)`</dt>
+<dd>Set, retrieve or delete an association. `$handle` is an association handle returned by `assoc_handle()`, and `$assoc` is an array. <br/>
+Uses PHP Sessions by default.</dd>
+<dt>`assoc_handle()`</dt>
+<dd> Generates an association handle.
+</dd>
+</dl>
+
+== Single user ==
+The `example.php` file contains an single-user implementation that you can use as a simple replacement for phpMyID. It uses HTTP authentication and doesn't support SREG or AX extensions.
+To use it from another url, just `include 'example.php';` at the top of it. The script shouldn't interfere with your page until someone tries to authenticate with OpenID.
+
+== Multiple users ==
+`example-mysql.php` shows how to use mysql database to provide identities. You can integrate the provider into your website based on that example.
