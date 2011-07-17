@@ -46,3 +46,5 @@ If you set `$select_id` flag in the provider, it will return a different XRDS do
   # this url does not belong to a user
 
 Because of 2., you can't set select_id on user's identity urls. If you do, most clients will return an error during verification.
+
+Also, remember to set `$xrdsLocation` for the identity urls, so that select_id can be disabled there too.
