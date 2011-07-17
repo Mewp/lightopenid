@@ -38,3 +38,11 @@ To use it from another url, just `include 'example.php';` at the top of it. The 
 
 == Multiple users ==
 `example-mysql.php` shows how to use mysql database to provide identities. You can integrate the provider into your website based on that example.
+
+== select_id ==
+If you set `$select_id` flag in the provider, it will return a different XRDS document, stating that:
+
+  # user will be prompted for his username (hence not needing to provide it in the identity url).
+  # this url does not belong to a user
+
+Because of 2., you can't set select_id on user's identity urls. If you do, most clients will return an error during verification.
