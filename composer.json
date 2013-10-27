@@ -2,7 +2,8 @@
     "name": "lightopenid/lightopenid",
     "type": "library",
     "keywords": ["openid"],
-    "homepage": "https://gitorious.org/lightopenid/lightopenid",
+    "homepage": "http://code.google.com/p/lightopenid/",
+    "license": "MIT",
     "require": {
         "php": ">=5.2.3"
     },
